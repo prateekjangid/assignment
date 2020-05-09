@@ -1,6 +1,6 @@
--1st service- Profile
--2nd Service- Assignment service
--Features used:-Spring Security,zull api gateway,Kafka,H2 db,REST controllers.
+-1st service- Profile  
+-2nd Service- Assignment service  
+-Features used:-Spring Security,zull api gateway,Kafka,H2 db,REST controllers.  
 
 1. Start the "Profile" service first since it has the db attached(as mentioned only 2 services can be created) for both services.
     - default port 8085.
@@ -8,7 +8,7 @@
 3. Kafka server is running at default port(9092 nd 2181) with one broker and one partition.
 4. Test cases has been added for each.(Profile services is required as db is attached with the service.)
 5. urls can be checked via postman:
-    a). login url:-http://localhost:9090/assignment/  -post method
+    a). login url:-http://localhost:9090/assignment/  -post method  
         -Body:
         {
             "username":"testuser",
@@ -16,7 +16,7 @@
         }
         it will fetch the user info.
     
-    b). http://localhost:9090/assignment/save    -post method
+    b). http://localhost:9090/assignment/save    -post method  
        -Body:
        {
             "userName":"prateek",
@@ -26,10 +26,10 @@
         }
         -It will create new user.
 
-    c). http://localhost:9090/assignment/delete-   -delete method
+    c). http://localhost:9090/assignment/delete-   -delete method  
         -purge the current user.
 
-    d).http://localhost:9090/assignment/update-   -put method
+    d).http://localhost:9090/assignment/update-   -put method  
        -Body:
        {
             "address":"abcd",
