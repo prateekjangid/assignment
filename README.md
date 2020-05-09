@@ -1,5 +1,6 @@
 1st service- Profile
 2nd Service- Assignment service
+Features used:-Spring Security,zull api gateway,Kafka,H2 db,REST controllers.
 
 1. Start the "Profile" service first since it has the db attached(as mentioned only 2 services can be created) for both services.
     - default port 8085.
