@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,18 +26,25 @@ public class AuthenticationController {
 	@Autowired
 	private KafkaProducer kp;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	static Profile p=null; 	
 	
 	
 	@PostMapping("/assignment")
 	public ResponseEntity<?> allowLogin(@RequestBody AuthInfo user) throws Exception {
 		try {
-			if(user==null)
+			if(user==null ||( 
+					isnullNdBlank(user.getUsername())||
+					isnullNdBlank(user.getPassword())
+					))
 			{
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Please provide username and password.");
 			}
 		UserDetails userDetails=this.authenticationService.loadUserByUsername(user.getUsername());
-		if(userDetails!=null &&( userDetails.getUsername().equals(user.getUsername()) && userDetails.getPassword().equals(user.getPassword()))) {
+		if(userDetails!=null &&( userDetails.getUsername().equals(user.getUsername()) 
+				&& passwordEncoder.matches(user.getPassword(), userDetails.getPassword()))) {
 			
 			 p=this.authenticationService.loadData(userDetails.getUsername());
 			
@@ -96,5 +104,16 @@ public class AuthenticationController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("deleted");
 	}
 	
+	
+	public boolean isnullNdBlank(String string)
+	{
+		
+		if(string==null||string.trim().equalsIgnoreCase(""))
+		{
+			return true;
+		}
+		
+		return false;
+	}
 	
 }

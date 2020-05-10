@@ -19,7 +19,12 @@ public class ProfileController {
 	@PostMapping("/save")
 	public ResponseEntity<?> saveProfile(@RequestBody Profile entity) {
 
-		if(entity==null || entity.getUserName()==null ||entity.getPhone()==null||entity.getAddress()==null)
+		if(entity==null||( 
+				isnullNdBlank(entity.getUserName())
+				|| isnullNdBlank(entity.getAddress())||
+				isnullNdBlank(entity.getPassword())||
+				isnullNdBlank(entity.getPhone())
+				))
 		{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Request");
 		}
@@ -32,4 +37,16 @@ public class ProfileController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(profile.getBody());
 	}
 
+	
+	public boolean isnullNdBlank(String string)
+	{
+		
+		if(string==null||string.trim().equalsIgnoreCase(""))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

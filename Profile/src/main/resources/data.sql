@@ -1,5 +1,5 @@
 
-insert into users
+insert into Users
 (username,password)
 values
 ('user','1234');

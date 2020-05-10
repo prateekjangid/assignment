@@ -20,7 +20,7 @@ import lombok.ToString;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="users")
+@Table(name="Users")
 public class AuthInfo {
 
 	/*private String username;
@@ -38,7 +38,7 @@ public class AuthInfo {
 	@Column(name="password")
 	private String password;
 	
-	@OneToOne(mappedBy="userid",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="userid",cascade=CascadeType.REFRESH)
 	@ToString.Exclude
 	@JsonIgnore
 	private Profile profile;

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.amdocs.Assignment.dao.Profile;
@@ -18,6 +19,9 @@ public class ProfileServiceImpl {
 	@Autowired
 	private ProfileRepo profileRepo;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private UsersRepo ur;
 
@@ -38,12 +42,14 @@ public class ProfileServiceImpl {
 		if (profile.getStatusCode() == HttpStatus.NO_CONTENT) {
 
 			Users u = new Users();
-			u.setPassword(p.getPassword());
+			String pwd=passwordEncoder.encode(p.getPassword());
+			u.setPassword(pwd);
+			//u.setPassword(p.getPassword());
 			u.setUsername(p.getUserName());
 			
 			ur.save(u);
 			p.setUserid(u);
-			
+			p.setPassword(pwd);
 			profileRepo.save(p);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(p);
 

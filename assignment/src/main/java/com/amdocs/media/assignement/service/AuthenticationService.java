@@ -22,11 +22,12 @@ public class AuthenticationService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		// fetch and authenticate user from in memory database here
+		
 		Profile user=userRepo.findByUserName(username);
 		
 		if(user!=null)
 		{
+			
 			this.p=user;
 			
 			return new User(user.getUserName(), user.getPassword(),new ArrayList<>());	

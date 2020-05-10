@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.amdocs.media.assignement.config.AuthenticationPreFilter;
 
@@ -21,4 +23,6 @@ public class AssignmentApplication {
 	public AuthenticationPreFilter getAuthenticationPreFilter() {
 		return new AuthenticationPreFilter();
 	}
+	
+	
 }
